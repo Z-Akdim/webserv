@@ -16,9 +16,61 @@ void    ParssFile::check_argument(int ac, char **argv)
     this->extention = &this->file_name[static_cast<int>(this->file_name.find('.') + 1)];
 }
 
+void    ParssFile::remove_spaces(std::string &refline)
+{
+    while (isspace(refline.front()))
+        refline.erase(0, 1);
+    while (isspace(refline.back()))
+        refline.erase(refline.length() - 1, 1);
+}
+
+void    ParssFile::find_OpenClose_EachServer()
+{
+    int i = 0;
+    if (content_file[0] != SERVER)
+        throw std::runtime_error("Error: we don't find Server please check you config.conf");
+    while (++i < content_file.size())
+    {
+        if (content_file[i].find(OPEN_BRACKET))
+            index_server.push_back(i);
+        if (content_file[i].find(CLOSE_BRACKET))
+            index_server.push_back(i);
+    }
+}
+
+void    ParssFile::delete_cmments(std::string &line, char c)
+{
+    int i = 0;
+
+    while (line[i])
+    {
+        if (line[i] == c)
+        {
+            line.erase(i, line.length() - 1);
+            break ;
+        }
+        i++;
+    }
+}
+
 void    ParssFile::fill_file_content()
 {
-    std::string f
+    std::ifstream file(this->file_name);
+    std::string line;
+
+    while(std::getline(file, line))
+    {
+        remove_spaces(line);
+        if (line.empty() || line == "\n")
+            continue;
+        if (line[0] == COMMENT2 || isspace(line[0]))
+            continue;
+        if (line.find(COMMENT2) != std::string::npos)
+            delete_cmments(line, COMMENT2);
+        if (line.find(COMMENT1) != std::string::npos)
+            delete_cmments(line, COMMENT1);
+        this->content_file.push_back(line);
+    }
 }
 
 void    ParssFile::check_bracket_brace_file()
@@ -55,4 +107,4 @@ void    ParssFile::check_bracket_brace_file()
         throw std::runtime_error("error: messing a open_brace or close_brace");
 }
 
-// ParssFile::~ParssFile();
+ParssFile::~ParssFile(){};

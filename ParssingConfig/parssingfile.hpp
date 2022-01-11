@@ -19,8 +19,8 @@
 #define INDEX "index"
 #define ALLOW_METHODS "allow_methods"
 #define FASTCGI_PASS "fastcgi_pass"
-#define COMMENT1 ";"
-#define COMMENT2 "#"
+#define COMMENT1 ';'
+#define COMMENT2 '#'
 #define PATH_CONFIG_FILE "config/"
 #define EXTENTION_FILE "conf"
 #define INVALIDE_FILE_NAME "Error: File Name : Invalide :("
@@ -32,13 +32,16 @@ class ParssFile
         std::string extention;
         std::string file_name;
         std::vector<std::string> content_file;
-        std::vector<int> index;
+        std::vector<int> index_server;
     public:
         ParssFile(int ac, char **argv);
         ~ParssFile();
         void    check_argument(int ac, char** av);
         void    check_bracket_brace_file();
         void    fill_file_content();
+        void    remove_spaces(std::string &);
+        void    delete_cmments(std::string &, char);
+        void    find_OpenClose_EachServer();
 
 };
 
