@@ -107,4 +107,75 @@ void    ParssFile::check_bracket_brace_file()
         throw std::runtime_error("error: messing a open_brace or close_brace");
 }
 
+void    ParssFile::take_port(std::string &ptr, dataserver& dataSr)
+{
+    int lenght = strlen(SERVER);
+    ptr.erase(remove_if(ptr.begin(), ptr.end(), isspace), ptr.end());
+    if (ptr.empty())
+        throw std::runtime_error("Error: Cheke Your Port");
+    ptr.erase(0, lenght);
+    dataSr.addListen(atoi(ptr.c_str()));
+}
+
+void    ParssFile::take_host(std::string & strhost, dataserver& dataHost)
+{
+    int lenght = strlen(HOST);
+    strhost.erase(remove_if(strhost.begin(), strhost.end(), isspace), strhost.end());
+    if (strhost.empty())
+        throw std::runtime_error("Error: Cheke Your Host");
+    strhost.erase(0, lenght);
+    dataHost.setHost(strhost);
+}
+
+void    ParssFile::take_server_name(std::string & str, dataserver& dataServN)
+{
+    str.erase(remove_if(str.begin(), str.end(), isspace), str.end());
+    if (str.empty())
+        throw std::runtime_error("Error: Cheke Your Server Name");
+    str.erase(0, strlen(SERVER_NAME));
+    dataServN.setServer_name(str);
+}
+
+void    ParssFile::take_C_M_B_S(std::string &str, dataserver&dataCMBS)
+{
+    str.erase(remove_if(str.begin(), str.end(), isspace), str.end());
+    if (str.empty())
+        throw std::runtime_error("Error: Cheke Your Client_Max_Body_Size ");
+    str.erase(0, strlen(CLIENT_MAX_BODY_SIZE));
+    dataCMBS.setClient_max_body_size(atoi(str.c_str()));
+}
+
+int lenght_int(int nbr)
+{
+    int i = 0;
+    while (nbr != 0)
+    {
+        nbr = nbr / 10;
+        i++;
+    }
+    i++;
+    return i;
+}
+
+void    ParssFile::take_Error_Page(std::string &str, dataserver& dataEPage)
+{
+    int nub_error = 0;
+    str.erase(remove_if(str.begin(), str.end(), isspace), str.end());
+    if (str.empty())
+        throw std::runtime_error("Error: Cheke Your Error Page");
+    str.erase(0, strlen(ERROR_PAGE));
+    nub_error = atoi(str.c_str());
+    str.erase(0, lenght_int(nub_error));
+    dataEPage.setError_page(nub_error, str);
+}
+
+void    ParssFile::take_Root(std::string &str, dataserver& dataRoot)
+{
+    str.erase(remove_if(str.begin(), str.end(), isspace), str.end());
+    if (str.empty())
+        throw std::runtime_error("Error: Cheke Your Root");
+    str.erase(0, strlen(ROOT));
+    dataRoot.setRoot(str);
+}
+
 ParssFile::~ParssFile(){};

@@ -3,11 +3,12 @@
 
 #include <iostream>
 #include <string>
+#include <stdlib.h>
 #include <map>
 #include <vector>
 #include <algorithm>
 #include <fstream>
 #include <sstream>
-// #include <ctype.h>
+#include <ctype.h>
 
 #endif

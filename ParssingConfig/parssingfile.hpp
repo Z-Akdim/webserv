@@ -2,6 +2,7 @@
 #define PARSSINGFILE_HPP
 
 #include "library.hpp"
+#include "DataServer.hpp"
 
 #define SERVER "server"
 #define OPEN_BRACKET "["
@@ -25,6 +26,7 @@
 #define EXTENTION_FILE "conf"
 #define INVALIDE_FILE_NAME "Error: File Name : Invalide :("
 
+class dataserver;
 
 class ParssFile
 {
@@ -42,8 +44,14 @@ class ParssFile
         void    remove_spaces(std::string &);
         void    delete_cmments(std::string &, char);
         void    find_OpenClose_EachServer();
-
+        void    take_port(std::string &, dataserver&);
+        void    take_host(std::string &, dataserver&);
+        void    take_server_name(std::string &, dataserver&);
+        void    take_C_M_B_S(std::string &, dataserver&);
+        void    take_Error_Page(std::string &, dataserver&);
+        void    take_Root(std::string &, dataserver&);
 };
 
+int lenght_int(int nbr);
 
 #endif
