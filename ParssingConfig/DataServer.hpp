@@ -1,7 +1,7 @@
 #ifndef DATASERVER_HPP
 #define DATASERVER_HPP
-#include "parssingfile.hpp"
 
+#include "library.hpp"
 class dataserver
 {
     friend class FileParss;
@@ -13,7 +13,6 @@ class dataserver
         std::string server_name;
         std::map<int, std::string> error_pages;
         std::string root;
-
     public:
         dataserver();
         ~dataserver();

@@ -3,6 +3,7 @@
 
 #include "library.hpp"
 #include "DataServer.hpp"
+// #include "location.hpp"
 
 #define SERVER "server"
 #define OPEN_BRACKET "["
@@ -27,6 +28,7 @@
 #define INVALIDE_FILE_NAME "Error: File Name : Invalide :("
 
 class dataserver;
+class location;
 
 class ParssFile
 {
@@ -35,8 +37,9 @@ class ParssFile
         std::string file_name;
         std::vector<std::string> content_file;
         std::vector<int> index_server;
+        std::vector<dataserver> servers;
     public:
-        ParssFile(int ac, char **argv);
+        ParssFile(int ac, char **arg);
         ~ParssFile();
         void    check_argument(int ac, char** av);
         void    check_bracket_brace_file();
@@ -50,7 +53,17 @@ class ParssFile
         void    take_C_M_B_S(std::string &, dataserver&);
         void    take_Error_Page(std::string &, dataserver&);
         void    take_Root(std::string &, dataserver&);
+        /**********************************************/
+        void    take_L_autoindex(std::string &, location &);
+        void    take_L_index(std::string &, location &);
+        void    take_L_fastcgi_pass(std::string& , location &);
+        void    take_L_Allow_Methods(std::string &, location &);
+
+
+        // void    _print(std::vector<std::string> line);
+        // void    _print(std::string type);
 };
+
 
 int lenght_int(int nbr);
 
