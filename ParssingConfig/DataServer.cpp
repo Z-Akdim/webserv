@@ -1,6 +1,11 @@
 #include "DataServer.hpp"
 
-dataserver::dataserver(){};
+dataserver::dataserver(){
+    this->client_max_body_size = -1;
+    this->server_name = "";
+    this->host = "";
+    this->root = "";
+};
 
 std::vector<int>dataserver::getListens()
 {
@@ -72,4 +77,38 @@ std::string dataserver::getRoot()
     return this->root;
 }
 
-dataserver::~dataserver(){};
+
+
+void    dataserver::clear_all()
+{
+    for(;host.size();)
+        this->host.pop_back();
+    this->host.erase(host.begin(),host.end());
+    this->host.clear();
+    this->server_name.erase(server_name.begin(), server_name.end());
+    this->server_name.clear();
+    this->client_max_body_size = -1;
+    this->error_pages.erase(error_pages.begin(), error_pages.end());
+    this->error_pages.clear();
+    this->root.erase(root.begin(), root.end());
+    this->root.clear();
+    for (size_t i = 0; i < Location.size();i++)
+        Location.clear();
+}
+
+void    dataserver::addLocation(std::map<std::string, location> &sv_loc)
+{
+    std::map<std::string, location>::iterator it = sv_loc.begin();
+    this->Location.insert(std::pair<std::string, location>(it->first, it->second));
+}
+
+void    dataserver::clearLocation(location &sv_loc)
+{
+    sv_loc.clearAll();
+}
+
+dataserver::~dataserver()
+{
+    host.clear();
+    error_pages.clear();
+}

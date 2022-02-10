@@ -3,8 +3,13 @@
 
 #include "library.hpp"
 #include "DataServer.hpp"
-// #include "location.hpp"
 
+
+#define CONFIG_FILE_PATH "config/"
+#define INVALIDE_FILE_NAME "Error: Invalide File Name"
+#define LOCATION_MAX_ELEMENT 4
+#define SERVER_MAX_ELEMENT 6
+#define FILE_EXTENTION "conf"
 #define SERVER "server"
 #define OPEN_BRACKET "["
 #define CLOSE_BRACKET "]"
@@ -37,7 +42,9 @@ class ParssFile
         std::string file_name;
         std::vector<std::string> content_file;
         std::vector<int> index_server;
-        std::vector<dataserver> servers;
+        std::vector<dataserver> server;
+        void	(ParssFile::*pointer[SERVER_MAX_ELEMENT])(std::string &, dataserver &);
+        void	(ParssFile::*location_pointer[LOCATION_MAX_ELEMENT])(std::string &, location &);
     public:
         ParssFile(int ac, char **arg);
         ~ParssFile();
@@ -53,6 +60,16 @@ class ParssFile
         void    take_C_M_B_S(std::string &, dataserver&);
         void    take_Error_Page(std::string &, dataserver&);
         void    take_Root(std::string &, dataserver&);
+        void    get_elements();
+        std::vector<dataserver> getServer();
+        void    run_location(int &start, int end, dataserver &sv);
+        location    getlocationInfo(int &, int &);
+        void    init_pointer(bool location);
+        void    ft_strtrim(std::string &str);
+        void    getTypeExtention(std::string &tmp);
+        std::vector<dataserver>    SplitServers();
+        std::string getFileName();
+        void    add_server(dataserver &var);
         /**********************************************/
         void    take_L_autoindex(std::string &, location &);
         void    take_L_index(std::string &, location &);
