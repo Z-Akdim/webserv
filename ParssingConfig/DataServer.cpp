@@ -64,7 +64,7 @@ std::map<int, std::string>  dataserver::getError_page()
 
 void    dataserver::setError_page( int &nbr_error, std::string &error_bath)
 {
-    this->error_pages.insert(std::pair<std::string, int> (error_bath, nbr_error));
+    this->error_pages.insert(std::pair<int, std::string> (nbr_error, error_bath));
 }
 
 void    dataserver::setRoot(std::string &ptr)
@@ -79,6 +79,8 @@ std::string dataserver::getRoot()
 
 void    dataserver::clear_all()
 {
+    for (;index_listens.size();)
+        this->index_listens.pop_back();
     for(;host.size();)
         this->host.pop_back();
     this->host.erase(host.begin(),host.end());

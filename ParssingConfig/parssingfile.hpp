@@ -42,10 +42,10 @@ class ParssFile
         std::string file_name;
         std::vector<std::string> content_file;
         std::vector<int> index_server;
-        std::vector<dataserver> server;
         void	(ParssFile::*pointer[SERVER_MAX_ELEMENT])(std::string &, dataserver &);
         void	(ParssFile::*location_pointer[LOCATION_MAX_ELEMENT])(std::string &, location &);
     public:
+        std::vector<dataserver> server;
         ParssFile(int ac, char **arg);
         ~ParssFile();
         void    check_argument(int ac, char** av);

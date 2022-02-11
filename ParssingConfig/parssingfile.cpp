@@ -4,8 +4,9 @@ ParssFile::ParssFile(int ac, char **av)
 {
     this->check_argument(ac, av);
     this->fill_file_content();
-    this->check_bracket_brace_file();
+    // this->check_bracket_brace_file();
     this->find_OpenClose_EachServer();
+    this->get_elements();
 }
 
 std::string ParssFile::getFileName()
@@ -25,9 +26,9 @@ void    ParssFile::check_argument(int ac, char **argv)
         this->file_name = argv[1];
     else
         this->file_name = "../confg/config.conf";
-    this->extention = &this->file_name[static_cast<int>(this->file_name.find('.') + 1)];
-    if (this->extention != "conf")
-        throw std::runtime_error("Cheke Your Config Extention");
+    // this->extention = &this->file_name[static_cast<int>(this->file_name.find('.') + 1)];
+    // if (this->extention != "conf")
+    //     throw std::runtime_error("Cheke Your Config Extention");
 }
 
 void    ParssFile::remove_spaces(std::string &refline)
@@ -40,14 +41,14 @@ void    ParssFile::remove_spaces(std::string &refline)
 
 void    ParssFile::find_OpenClose_EachServer()
 {
-    int i = 0;
+    int i = -1;
     if (content_file[0] != SERVER || content_file[1] != OPEN_BRACKET)
         throw std::runtime_error("Error: Check your config.conf");
     while (++i < content_file.size())
     {
-        if (content_file[i].find(OPEN_BRACKET))
+        if (content_file[i] == OPEN_BRACKET)
             index_server.push_back(i);
-        if (content_file[i].find(CLOSE_BRACKET))
+        if (content_file[i] == CLOSE_BRACKET)
             index_server.push_back(i);
     }
 }
@@ -84,7 +85,7 @@ void    ParssFile::fill_file_content()
             delete_cmments(line, COMMENT2);
         if (line.find(COMMENT1) != std::string::npos)
             delete_cmments(line, COMMENT1);
-        std::cout << line << std::endl;
+        // std::cout << line << std::endl;
         this->content_file.push_back(line);
     }
 }
@@ -115,7 +116,7 @@ void    ParssFile::check_bracket_brace_file()
     for(std::vector<std::string>::iterator it = content_file.begin(); it != content_file.end(); it++)
     {
         ptr = *it;
-        close_brace = close_brace + std::count(content_file.begin(), content_file.end(), '}');
+        close_brace = close_brace + std::count(ptr.begin(), ptr.end(), '}');
     }
     if ((open_bracket != close_bracket) || ((open_bracket = 0) && (close_bracket = 0)))
         throw std::runtime_error("Error: Cheke Your Bracket");
@@ -345,7 +346,7 @@ void    ParssFile::get_elements()
     {
         start = index_server[i] + 1;
         end = index_server[i + 1];
-        while (++start < end)
+        while (start < end)
         {
             for (size_t count = 0; count < 6; count++)
             {
@@ -372,6 +373,7 @@ void    ParssFile::get_elements()
                     locationEND = 0;
                 }
             }
+            start++;
         }
         this->add_server(sv);
         sv.clear_all();
