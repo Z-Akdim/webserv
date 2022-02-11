@@ -3,10 +3,10 @@
 
 #include "library.hpp"
 #include "DataServer.hpp"
+#include "location.hpp"
 
 
 #define CONFIG_FILE_PATH "config/"
-#define INVALIDE_FILE_NAME "Error: Invalide File Name"
 #define LOCATION_MAX_ELEMENT 4
 #define SERVER_MAX_ELEMENT 6
 #define FILE_EXTENTION "conf"
@@ -76,11 +76,24 @@ class ParssFile
         void    take_L_fastcgi_pass(std::string& , location &);
         void    take_L_Allow_Methods(std::string &, location &);
 
-
-        // void    _print(std::vector<std::string> line);
-        // void    _print(std::string type);
 };
 
+
+template <typename T>
+void    _print(T &var, std::string type)
+{
+    if(type == "vector")
+    {
+        for (size_t i = 0; i < var.size(); i++)
+            std::cout << var[i] << std::endl;
+    }
+    else if (type == "string")
+    {
+        for (size_t i = 0; i < var.size(); i++)
+            std::cout << var[i];
+        std::cout << std::endl;
+    }
+}
 
 int lenght_int(int nbr);
 

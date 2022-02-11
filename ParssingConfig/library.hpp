@@ -1,14 +1,21 @@
 #ifndef LIBRARY_HPP
 #define LIBRARY_HPP
-// #include "parssingfile.hpp"
+
+#include <stdio.h>
 #include <iostream>
-#include <string>
+#include <sys/socket.h>
+#include <unistd.h>
 #include <stdlib.h>
-#include <map>
+#include <netinet/in.h>
+#include <string.h>
+#include <netdb.h>
 #include <vector>
-#include <algorithm>
+#include <map>
+#include <arpa/inet.h> 
+#include <iostream>
 #include <fstream>
 #include <sstream>
-#include <ctype.h>
+#include <stdio.h>
+#include <algorithm>
 
 #endif

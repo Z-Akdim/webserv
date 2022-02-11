@@ -77,8 +77,6 @@ std::string dataserver::getRoot()
     return this->root;
 }
 
-
-
 void    dataserver::clear_all()
 {
     for(;host.size();)
@@ -111,4 +109,72 @@ dataserver::~dataserver()
 {
     host.clear();
     error_pages.clear();
+}
+
+
+
+void    dataserver::printServerData()
+{
+    std::cout << "\e[1;31mports                = \e[1;32m";
+    for (size_t i = 0; i < this->index_listens.size(); i++)
+        std::cout << "|" << this->index_listens[i] << "|";
+    std::cout << std::endl;
+    std::cout << "\e[1;31mhost                 = \e[1;32m|" << this->host << "|" << std::endl;
+    std::cout << "\e[1;31mserver_name          = \e[1;32m|" << this->server_name << "|" << std::endl;
+    std::cout << "\e[1;31mClient Max body size = \e[1;32m|" << this->client_max_body_size << "|" << std::endl;
+    std::cout << "\e[1;31mroot                 = \e[1;32m|" << this->root << "|" << std::endl;
+    std::cout << "\e[1;31mError_pages :"<<std::endl;
+    for (std::map<int,std::string>::iterator it = this->error_pages.begin(); it != this->error_pages.end(); it++)
+        std::cout << "\e[1;34mkey = \e[1;32m|" << it->first << "| \e[1;34mvalue = \e[1;32m|"+ it->second << "|" << std::endl;
+
+    std::cout << "\e[1;33m///////////////////////LOACATION INFORMATION/////////////////\e[1;34m" << std::endl;
+    std::string arr[5] = {"/", "php", "py", "upload"};
+    size_t i = 0;
+    for (; i < Location.size() ; i++)
+    {
+        std::cout << "\e[1;31mlocation type = |";
+        std::cout << Location[arr[i]].getLocationtype() << "|" << std::endl;
+        std::cout << "\e[1;34mAutoIndex     = \e[1;32m|";
+        std::cout << Location[arr[i]].getL_AutoIndex() << "|" << std::endl;
+        std::cout << "\e[1;34mIndex         = \e[1;32m|";
+        std::cout << Location[arr[i]].getL_Index() << "|" << std::endl;
+        std::cout << "\e[1;34mfastCgiPass   = \e[1;32m|";
+        std::cout << Location[arr[i]].getL_Fastcgi_Pass() << "|" << std::endl;
+        std::map<std::string , int> test;
+        test = Location[arr[i]].getL_Allowed_Methods();
+        std::cout << "\e[1;34mGET           = \e[1;32m|" << test["GET"] << "|\e[1;34m, POST = \e[1;32m|" << test["POST"] << "|\e[1;34m, DELETE = \e[1;32m|" << test["DELETE"] << "|" << std::endl;
+    }
+}
+
+void    dataserver::printServerALLData()
+{
+    std::cout << "\e[1;31mports                = \e[1;32m";
+    std::cout << "|" << this->listen << "|";
+    std::cout << std::endl;
+    std::cout << "\e[1;31mhost                 = \e[1;32m|" << this->host << "|" << std::endl;
+    std::cout << "\e[1;31mserver_name          = \e[1;32m|" << this->server_name << "|" << std::endl;
+    std::cout << "\e[1;31mClient Max body size = \e[1;32m|" << this->client_max_body_size << "|" << std::endl;
+    std::cout << "\e[1;31mroot                 = \e[1;32m|" << this->root << "|" << std::endl;
+    std::cout << "\e[1;31mError_pages :"<<std::endl;
+    for (std::map<int,std::string>::iterator it = this->error_pages.begin(); it != this->error_pages.end(); it++)
+        std::cout << "\e[1;34mkey = \e[1;32m|" << it->first << "| \e[1;34mvalue = \e[1;32m|"+ it->second << "|" << std::endl;
+
+    std::cout << "\e[1;33m///////////////////////LOACATION INFORMATION/////////////////\e[1;34m" << std::endl;
+    std::vector<std::string> types;
+    for (std::map<std::string, location>::iterator it = Location.begin(); it != Location.end(); it++)
+        types.push_back(it->first);
+    for (size_t i = 0; i < types.size() ; i++)
+    {
+        std::cout << "\e[1;31mlocation type = |";
+        std::cout << Location[types[i]].getLocationtype() << "|" << std::endl;
+        std::cout << "\e[1;34mAutoIndex     = \e[1;32m|";
+        std::cout << Location[types[i]].getL_AutoIndex() << "|" << std::endl;
+        std::cout << "\e[1;34mIndex         = \e[1;32m|";
+        std::cout << Location[types[i]].getL_Index() << "|" << std::endl;
+        std::cout << "\e[1;34mfastCgiPass   = \e[1;32m|";
+        std::cout << Location[types[i]].getL_Fastcgi_Pass() << "|" << std::endl;
+        std::map<std::string , int> test;
+        test = Location[types[i]].getL_Allowed_Methods();
+        std::cout << "\e[1;34mGET           = \e[1;32m|" << test["GET"] << "|\e[1;34m, POST = \e[1;32m|" << test["POST"] << "|\e[1;34m, DELETE = \e[1;32m|" << test["DELETE"] << "|" << std::endl;
+    }
 }

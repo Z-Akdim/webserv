@@ -1,11 +1,12 @@
 #ifndef LOCATION_HPP
 #define LOCATION_HPP
 #include "library.hpp"
-#include "parssingfile.hpp"
+#include "DataServer.hpp"
 
+class dataserver;
 class location
 {
-    friend class serverINFO;
+    friend class dataserver;
     private:
         int autoindex;
         std::string index;

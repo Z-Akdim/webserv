@@ -1,5 +1,4 @@
 #include "parssingfile.hpp"
-#include "location.hpp"
 
 ParssFile::ParssFile(int ac, char **av)
 {
@@ -269,8 +268,6 @@ void    ParssFile::take_L_Allow_Methods(std::string &str, location &loc)
 }
 
 
-
-
 void    ParssFile::init_pointer(bool location)
 {
     if (!location)
@@ -382,7 +379,7 @@ void    ParssFile::get_elements()
     }
 }
 
-std::vector<dataserver>    ParssFile::SplitServers()
+std::vector<dataserver>  ParssFile::SplitServers()
 {
     std::vector<dataserver> servers;
 

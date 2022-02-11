@@ -1,7 +1,7 @@
 #ifndef DATASERVER_HPP
 #define DATASERVER_HPP
 #include "location.hpp"
-#include "library.hpp"
+#include "parssingfile.hpp"
 
 class dataserver
 {
@@ -30,6 +30,11 @@ class dataserver
         void    clearLocation(location &sv_loc);
         void    addLocation(std::map<std::string, location> &sv_loc);
         void    clear_all();
+
+        void    printServerData();
+        void    printServerALLData();
+
+
         std::string   getHost();
         std::string   getServer_name();
         std::map<int, std::string>  getError_page();
