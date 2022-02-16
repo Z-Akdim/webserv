@@ -63,6 +63,12 @@
         "typeinfo": "cpp",
         "utility": "cpp",
         "__functional_03": "cpp",
-        "memory_resource": "cpp"
+        "memory_resource": "cpp",
+        "__functional_base_03": "cpp",
+        "__memory": "cpp",
+        "bit": "cpp",
+        "deque": "cpp",
+        "iomanip": "cpp",
+        "stack": "cpp"
     }
 }

@@ -32,14 +32,14 @@ std::string location::getLocationtype()
     return this->Locationtype;
 }
 
-void location::set_L_type(std::string l_type)
-{
-    this->type = l_type;
-}
-std::string location::get_L_type()
-{
-    return this->type;
-}
+// void location::set_L_type(std::string l_type)
+// {
+//     this->type = l_type;
+// }
+// std::string location::get_L_type()
+// {
+//     return this->type;
+// }
 
 void location::setL_Fastcgi_Pass(std::string f_pass)
 {

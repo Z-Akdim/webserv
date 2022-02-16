@@ -13,9 +13,9 @@ class dataserver
         std::string server_name;
         std::vector<int> index_listens;
         std::map<int, std::string> error_pages;
-        std::map<std::string, location> Location;
         std::string root;
     public:
+        std::map<std::string, location> Location;
         dataserver();
         ~dataserver();
 

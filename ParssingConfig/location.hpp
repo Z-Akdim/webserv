@@ -13,7 +13,7 @@ class location
         std::map<std::string, int> allowed_methode;
         std::string fastcgi_pass;
         std::string Locationtype;
-        std::string type;
+        // std::string type;
     public:
         location();
         ~location();
