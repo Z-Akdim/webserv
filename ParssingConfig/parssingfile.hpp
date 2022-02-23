@@ -50,11 +50,13 @@ class ParssFile
     public:
         ParssFile(int ac, char **arg);
         ~ParssFile();
+        std::map<int, std::string> mapTmp;
         std::vector<dataserver> servers;
         std::vector<dataserver> getServer();
         std::vector<dataserver>    SplitServers();
         std::string getFileName();
         location    getlocationInfo(int &, int &);
+        void    split(std::string line, char splitter);
         void    check_argument(int ac, char** av);
         void    check_bracket_brace_file();
         void    fill_file_content();
