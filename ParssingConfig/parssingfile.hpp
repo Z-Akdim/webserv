@@ -7,7 +7,7 @@
 
 
 #define CONFIG_FILE_PATH "config/"
-#define LOCATION_MAX_ELEMENT 4
+#define LOCATION_MAX_ELEMENT 8
 #define SERVER_MAX_ELEMENT 6
 #define FILE_EXTENTION "conf"
 #define SERVER "server"
@@ -26,6 +26,9 @@
 #define INDEX "index"
 #define ALLOW_METHODS "allow_methods"
 #define FASTCGI_PASS "fastcgi_pass"
+#define UPLOAD_ENABLE "upload_enable"
+#define UPLOAD_STORE "upload_store"
+#define RETURN "return"
 #define COMMENT1 ';'
 #define COMMENT2 '#'
 #define PATH_CONFIG_FILE "config/"
@@ -45,9 +48,13 @@ class ParssFile
         void	(ParssFile::*pointer[SERVER_MAX_ELEMENT])(std::string &, dataserver &);
         void	(ParssFile::*location_pointer[LOCATION_MAX_ELEMENT])(std::string &, location &);
     public:
-        std::vector<dataserver> server;
         ParssFile(int ac, char **arg);
         ~ParssFile();
+        std::vector<dataserver> servers;
+        std::vector<dataserver> getServer();
+        std::vector<dataserver>    SplitServers();
+        std::string getFileName();
+        location    getlocationInfo(int &, int &);
         void    check_argument(int ac, char** av);
         void    check_bracket_brace_file();
         void    fill_file_content();
@@ -61,21 +68,20 @@ class ParssFile
         void    take_Error_Page(std::string &, dataserver&);
         void    take_Root(std::string &, dataserver&);
         void    get_elements();
-        std::vector<dataserver> getServer();
         void    run_location(int &start, int end, dataserver &sv);
-        location    getlocationInfo(int &, int &);
         void    init_pointer(bool location);
         void    ft_strtrim(std::string &str);
         void    getTypeExtention(std::string &tmp);
-        std::vector<dataserver>    SplitServers();
-        std::string getFileName();
         void    add_server(dataserver &var);
         /**********************************************/
         void    take_L_autoindex(std::string &, location &);
         void    take_L_index(std::string &, location &);
         void    take_L_fastcgi_pass(std::string& , location &);
         void    take_L_Allow_Methods(std::string &, location &);
-
+        void    take_L_Up_Enb(std::string &, location &);
+        void    take_L_Up_Store(std::string &, location &);
+        void    take_L_Return(std::string &, location &);
+        void    take_L_Root(std::string &, location&);
 };
 
 

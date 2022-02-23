@@ -5,6 +5,7 @@ void    printServersINFO(std::vector<dataserver> newServers)
 {
     for (size_t i = 0; i < newServers.size(); i++)
     {
+        std::cout << std::endl;
         std::cout<<"\e[4;36m  _____    _____   ______     __    __    _____   ______" << std::endl;
         std::cout<<" / ____\\  / ___/  (   __ \\    ) )  ( (   / ___/  (   __ \\" << std::endl;
         std::cout<<"( (___   ( (__     ) (__) )  ( (    ) ) ( (__     ) (__) )" << std::endl;
@@ -26,7 +27,7 @@ int     main(int ac, char **av)
 
         ParssFile parss(ac, av);
         //split all servers by port NB: use 'port' variable not 'ports' to get every server port
-        std::vector<dataserver> newServers = parss.server/*.SplitServers()*/;
+        std::vector<dataserver> newServers = parss.servers/*SplitServers()*/;
         // std::cout << newServers[0].Location["php"].getL_Index() << std::endl;
         printServersINFO(newServers);
     }
