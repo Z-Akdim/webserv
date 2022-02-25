@@ -24,12 +24,12 @@ int     main(int ac, char **av)
     // HTTPserver webserv(ac, av);
     try
     {
-
         ParssFile parss(ac, av);
         //split all servers by port NB: use 'port' variable not 'ports' to get every server port
         std::vector<dataserver> newServers = parss.servers/*SplitServers()*/;
-        // std::cout << newServers[0].Location["php"].getL_Index() << std::endl;
-        printServersINFO(newServers);
+        std::cout << newServers[0].Location["*.php"].getLocationExtention() << std::endl;
+        // std::cout << newServers[0].Location.find("*.py")->second.getLocationExtention()<< std::endl;
+        // printServersINFO(newServers);
     }
     catch(const std::exception& e)
     {

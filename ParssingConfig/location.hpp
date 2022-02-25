@@ -16,6 +16,7 @@ class location
         std::string L_Root;
         std::string fastcgi_pass;
         std::string Locationtype;
+        std::string LocationExtention;
         std::string upload_store;
         std::string return_value;
     public:
@@ -24,6 +25,7 @@ class location
         bool isCgi;
         bool isRoot;
         void		setLocationtype(std::string);
+        void		setLocationExtention(std::string);
         void		setL_Type(std::string);
         void 		setL_AutoIndex(int);
         void 		setL_Index(std::string);
@@ -39,6 +41,7 @@ class location
         int         get_L_upload_enb();
         std::string get_L_upload_store();
         std::string getLocationtype();
+        std::string getLocationExtention();
         std::string getL_Root();
         std::string get_L_type();
         std::string getL_Index();

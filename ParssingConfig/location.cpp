@@ -45,13 +45,23 @@ int location::getL_AutoIndex()
     return this->autoindex;
 }
 
-void location::setLocationtype(std::string l_extention)
+void location::setLocationtype(std::string l_type)
 {
-    this->Locationtype = l_extention;
+    this->Locationtype = l_type;
 }
 std::string location::getLocationtype()
 {
     return this->Locationtype;
+}
+
+void location::setLocationExtention(std::string l_exten)
+{
+    this->LocationExtention = l_exten;
+}
+
+std::string location::getLocationExtention()
+{
+    return this->LocationExtention;
 }
 
 void    location::set_L_upload_store(std::string store)

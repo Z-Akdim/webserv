@@ -55,6 +55,8 @@ class ParssFile
         std::vector<dataserver> getServer();
         std::vector<dataserver>    SplitServers();
         std::string getFileName();
+
+        /////////////////
         location    getlocationInfo(int &, int &);
         void    split(std::string line, char splitter);
         void    check_argument(int ac, char** av);
@@ -73,9 +75,9 @@ class ParssFile
         void    run_location(int &start, int end, dataserver &sv);
         void    init_pointer(bool location);
         void    ft_strtrim(std::string &str);
-        void    getTypeExtention(std::string &tmp);
         void    add_server(dataserver &var);
         /**********************************************/
+        std::string    getTypeExtention(std::string );
         void    take_L_autoindex(std::string &, location &);
         void    take_L_index(std::string &, location &);
         void    take_L_fastcgi_pass(std::string& , location &);

@@ -296,23 +296,6 @@ void    ParssFile::take_L_fastcgi_pass(std::string &str, location &loc)
     loc.isCgi = true;
 }
 
-// void    ParssFile::take_L_Allow_Methods(std::string &str, location &loc)
-// {
-//     std::map<std::string, int> methodes;
-//     str.erase(remove_if(str.begin(), str.end(), isspace), str.end());
-//     str.erase(0, strlen(ALLOW_METHODS));
-//     if (str.empty())
-//         throw std::runtime_error("Error: Cheke allow_methods In Your Location");
-//     if (str.find("GET") != std::string::npos)
-//         methodes.insert(std::pair<std::string, int>("GET", 1));
-//     if (str.find("POST") != std::string::npos)
-//         methodes.insert(std::pair<std::string, int>("POST", 1));
-//     if (str.find("DELETE") != std::string::npos)
-//         methodes.insert(std::pair<std::string, int>("DELETE", 1));
-//     loc.setL_Allowed_Methods(methodes);
-// }
-
-
 void    ParssFile::take_L_Allow_Methods(std::string &str, location &loc)
 {
     std::map<std::string, int> methodes;
@@ -482,13 +465,16 @@ location    ParssFile::getlocationInfo(int &start, int &end)
     return sv_loc;
 }
 
-void    ParssFile::getTypeExtention(std::string &tmp)
+std::string    ParssFile::getTypeExtention(std::string tmp)
 {
-    int size = 0;
-    while (tmp[size] != '.' && tmp[size])
-        size++;
-    if (tmp[size] == '.')
+    location sv_loc;
+    int size = tmp.find('.');
+    if(size != std::string::npos)
+    {
         tmp.erase(0, ++size);
+        return(tmp);
+    }
+    return "";
 }
 
 void    ParssFile::run_location(int &start, int end, dataserver &sv)
@@ -496,9 +482,9 @@ void    ParssFile::run_location(int &start, int end, dataserver &sv)
     std::string tmp_type = this->content_file[start];
     tmp_type.erase(0, strlen(LOCATION));
     ft_strtrim(tmp_type);
-    getTypeExtention(tmp_type);
     std::map<std::string, location> sv_loc;
     sv_loc.insert(std::pair<std::string, location>(tmp_type, getlocationInfo(start, end)));
+    sv_loc.begin()->second.setLocationExtention(getTypeExtention(tmp_type));
     sv.addLocation(sv_loc);
 }
 
