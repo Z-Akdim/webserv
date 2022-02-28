@@ -131,6 +131,7 @@ void    ParssFile::check_bracket_brace_file()
 void    ParssFile::take_port(std::string &ptr, dataserver& dataSr)
 {
     ft_strtrim(ptr);
+    int port;
     if (ptr.empty())
         throw std::runtime_error("Error: Cheke Your Port");
     ptr.erase(0, strlen(LISTEN));
@@ -140,44 +141,97 @@ void    ParssFile::take_port(std::string &ptr, dataserver& dataSr)
     for (size_t i = 0; i < ptr.size() ; i++)
         if (ptr[i] < '0' || ptr[i] > '9')
             throw std::runtime_error("Error: Check you port");
-    dataSr.addListen(atoi(ptr.c_str()));
+    port = atoi(ptr.c_str());
+    if (dataSr.getListens().size())
+    {
+        for (size_t i = 0; i < dataSr.getListens().size(); i++)
+        {
+            if (dataSr.getListens()[i] == port)
+                throw std::runtime_error("Error: You Have A Dublicate Port Please Cheke Your Port");
+        }
+    }
+    dataSr.addListen(port);
+    dataSr.setAllPorts(port);
 }
 
 void    ParssFile::take_host(std::string & strhost, dataserver& dataHost)
 {
-    int lenght = strlen(HOST);
-    ft_strtrim(strhost);
-    if (strhost.empty())
-        throw std::runtime_error("Error: Cheke Your Host");
-    strhost.erase(0, lenght);
-    ft_strtrim(strhost);
-    if (strhost.empty())
-        throw std::runtime_error("Error: Cheke Your Host");
-    dataHost.setHost(strhost);
+    if (dataHost.getHost().empty())
+    {
+        int lenght = strlen(HOST);
+        int cont = 0;
+        int i = 0;
+        int j = 0;
+        std::string str;
+        ft_strtrim(strhost);
+        if (strhost.empty())
+            throw std::runtime_error("Error: Cheke Your Host");
+        strhost.erase(0, lenght);
+        ft_strtrim(strhost);
+        if (strhost.empty())
+            throw std::runtime_error("Error: Cheke Your Host");
+        if (strhost.find('.') != std::string::npos)
+        {
+            while (i < strhost.length())
+            {
+                if (strhost[i] == '.')
+                {
+                    cont++;
+                    ++i;
+                }
+                str = str + strhost[i];
+                i++;
+            }
+            if (cont != 3)
+                throw std::runtime_error("Error: Cheke Your Host");
+            while (j < str[j])
+            {
+                if (str[j] < '0' || str[j] > '9')
+                    throw std::runtime_error("Error: Cheke Your Host");
+                j++;
+            }
+            dataHost.setHost(strhost);
+        }
+        dataHost.setHost(strhost);
+    }
+    else
+        throw std::runtime_error("Error: You Have A Dublicate Host Please Cheke Your Host");
 }
 
 void    ParssFile::take_server_name(std::string &str, dataserver& dataServN)
 {
-    ft_strtrim(str);
-    if (str.empty())
-        throw std::runtime_error("Error: Cheke Your Server Name");
-    str.erase(0, strlen(SERVER_NAME));
-    ft_strtrim(str);
-    if (str.empty())
-        throw std::runtime_error("Error: Cheke Your Server Name");
-    dataServN.setServer_name(str);
+    if (dataServN.getServer_name().empty())
+    {
+        ft_strtrim(str);
+        if (str.empty())
+            throw std::runtime_error("Error: Cheke Your Server Name");
+        str.erase(0, strlen(SERVER_NAME));
+        ft_strtrim(str);
+        if (str.empty())
+            throw std::runtime_error("Error: Cheke Your Server Name");
+        dataServN.setServer_name(str);
+    }
+    else
+        throw std::runtime_error("Error: You Have A Dublicate Server Name Please Cheke Your Server Name");
 }
 
-void    ParssFile::take_C_M_B_S(std::string &str, dataserver&dataCMBS)
+void    ParssFile::take_C_M_B_S(std::string &str, dataserver& dataCMBS)
 {
-    ft_strtrim(str);
-    if (str.empty())
-        throw std::runtime_error("Error: Cheke Your Client_Max_Body_Size ");
-    str.erase(0, strlen(CLIENT_MAX_BODY_SIZE));
-    ft_strtrim(str);
-    if (str.empty())
-        throw std::runtime_error("Error: Cheke Your Client_Max_Body_Size ");
-    dataCMBS.setClient_max_body_size(atoi(str.c_str()));
+    int i = 0;
+    i = dataCMBS.getClient_max_body_size();
+    if (i == -1)
+    {
+        ft_strtrim(str);
+        if (str.empty())
+            throw std::runtime_error("Error: Cheke Your Client_Max_Body_Size ");
+        str.erase(0, strlen(CLIENT_MAX_BODY_SIZE));
+        ft_strtrim(str);
+        if (str.empty())
+            throw std::runtime_error("Error: Cheke Your Client_Max_Body_Size ");
+        dataCMBS.setClient_max_body_size(atoi(str.c_str()));
+    }
+    else
+        throw std::runtime_error("Error: Dublicate PLease Cheke Your Client_Max_Body_Size ");
 }
 
 void ParssFile::ft_strtrim(std::string &str)
@@ -228,14 +282,19 @@ void    ParssFile::take_Error_Page(std::string &str, dataserver& dataEPage)
 
 void    ParssFile::take_Root(std::string &str, dataserver& dataRoot)
 {
-    ft_strtrim(str);
-    if (str.empty())
-        throw std::runtime_error("Error: Cheke Your Root");
-    str.erase(0, strlen(ROOT));
-    ft_strtrim(str);
-    if (str.empty())
-        throw std::runtime_error("Error: Cheke Your Root");
-    dataRoot.setRoot(str);
+    if (dataRoot.getRoot().empty())
+    {
+        ft_strtrim(str);
+        if (str.empty())
+            throw std::runtime_error("Error: Cheke Your Root");
+        str.erase(0, strlen(ROOT));
+        ft_strtrim(str);
+        if (str.empty())
+            throw std::runtime_error("Error: Cheke Your Root");
+        dataRoot.setRoot(str);
+    }
+    else
+        throw std::runtime_error("Error: Dublicate Root Please Cheke Your Root");
 }
 
 /********************************  LOCATION  ********************************/
@@ -402,7 +461,6 @@ void    ParssFile::take_L_Return(std::string &str, location &loc)
     int nbr = atoi(str.c_str());
     str.erase(0, lenght_int(nbr));
     ft_strtrim(str);
-    // std::cout << "|" << str << "|" << std::endl;
     if (str.empty())
         throw std::runtime_error("Error: Cheke Return In Your Location");
     loc.setL_Return(nbr, str);

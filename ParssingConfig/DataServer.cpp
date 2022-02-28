@@ -17,6 +17,16 @@ void    dataserver::addListen(int listen)
     this->index_listens.push_back(listen);
 }
 
+void    dataserver::setAllPorts(int Ports)
+{
+    this->all_port.push_back(Ports);
+}
+
+std::vector<int>dataserver::getAllPorts()
+{
+    return this->all_port;
+}
+
 void    dataserver::setListen(int listen)
 {
     this->listen = listen;
@@ -120,6 +130,10 @@ void    dataserver::printServerData()
     std::cout << "\e[1;31mports                = \e[1;32m";
     for (size_t i = 0; i < this->index_listens.size(); i++)
         std::cout << "|" << this->index_listens[i] << "|";
+    std::cout << std::endl;
+    std::cout << "\e[1;31mAll_ports                = \e[1;32m";
+    for (size_t i = 0; i < this->all_port.size(); i++)
+        std::cout << "|" << this->all_port[i] << "|";
     std::cout << std::endl;
     std::cout << "\e[1;31mhost                 = \e[1;32m|" << this->host << "|" << std::endl;
     std::cout << "\e[1;31mserver_name          = \e[1;32m|" << this->server_name << "|" << std::endl;

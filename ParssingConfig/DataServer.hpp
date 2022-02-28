@@ -12,6 +12,7 @@ class dataserver
         std::string host;
         std::string server_name;
         std::vector<int> index_listens;
+        std::vector<int> all_port;
         std::map<int, std::string> error_pages;
         std::string root;
     public:
@@ -20,8 +21,10 @@ class dataserver
         ~dataserver();
 
         std::vector<int> getListens();
+        std::vector<int>getAllPorts();
         void    addListen(int);
         void    setListen(int);
+        void    setAllPorts(int);
         void    setHost(std::string &);
         void    setServer_name(std::string &);
         void    setClient_max_body_size(int);
